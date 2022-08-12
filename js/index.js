@@ -48,6 +48,22 @@ function init(){
     draw()
 }
 
+/*
+async function animate_draw(animation_array, current_state){
+
+}
+
+let start = 0;
+
+function animate(timestamp) { 
+  const elapsed = timestamp - start;
+  if (elapsed > 200) {
+    start = timestamp;
+    animate_that_draw_state_array();
+  }
+  requestAnimationFrame(animate); 
+}
+*/
 
 
 //console.log(save_state)

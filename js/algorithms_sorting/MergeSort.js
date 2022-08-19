@@ -1,7 +1,7 @@
 // O(n log n)
 export class MergeSort{
     constructor(arr){
-        this.array = arr
+        this.array = [...arr]
         this.array_index = []
         this.animation_array = [[...arr]]
     }
@@ -34,7 +34,7 @@ export class MergeSort{
         let j = 0
         let k = l
         while(i < n1 && j < n2){
-            if(L[i] < R[j]){
+            if(L[i].getNumber() < R[j].getNumber()){
                 this.array[k] = L[i];
                 i++;
             }else{

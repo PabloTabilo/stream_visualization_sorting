@@ -5,7 +5,13 @@ export class MergeSort{
         this.array_index = []
         this.animation_array = [[...arr]]
     }
-    get_arr = () => this.array;
+    get_arr = () => {
+        let temp = []
+        for(let i=0; i<this.array.length;i++){
+            temp.push(this.array[i].getNumber())
+        }
+        return temp
+    }
 
     merge(l, r){
         if(l < r){

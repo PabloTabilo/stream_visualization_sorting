@@ -1,8 +1,10 @@
 import { Rectangle } from "./Rectangle.js";
 import { MergeSort } from "./algorithms_sorting/MergeSort.js";
+import { RadixSort } from "./algorithms_sorting/RadixSort.js";
 
 const resetBtn = document.getElementById("reset");
 const mergeBtn = document.getElementById("merge");
+const radixBtn = document.getElementById("radix");
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
@@ -11,7 +13,7 @@ canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
 
 // size of array that we need to sort
-let n = 90
+let n = 50
 // number of pixels per element on array
 let limit_num = canvas.width / n
 // max value on array
@@ -45,10 +47,15 @@ function clear(){
 }
 
 function draw(){
+    // Normalize >> each value of array is between
+    // [0, 1]
     let max_value = Math.max(...random_numbers)
     let min_value = Math.min(...random_numbers)
     let normalize_random_numbers = random_numbers.map((x) => (x - min_value) / (max_value - min_value))
+    // know height of each bars
     let normalize_random_numbers_ref_canvas_height = normalize_random_numbers.map((x) => Math.floor(x * canvas.height)+threshold_for_low_values)
+
+    // declare object Rectangle (62 line)
     let r_i;
     //let random_color = ["#D3FF33", "#33FFBC", "#B233FF"]
     let j = 0;
@@ -74,15 +81,18 @@ function redraw(){
 }
 
 function init(){
-    reset()
-    clear()
-    draw()
+    reset() // update of global variables >> save state
+    clear() // clear canvas
+    draw() // draw original from 0 >> reset global vars
 }
 
 function animate(timestamp) {
     if(i >= n) return;
     const elapsed = timestamp - start;
+
+    //console.log("elpased dif: ", elapsed)
     if (elapsed > 150) {
+        //console.log("i:",i)
         start = timestamp;
         clear();
         save_state = random_numbers_animation[i];
@@ -106,6 +116,7 @@ canvas.addEventListener("click", (e) => {
 let my_merge = () => {
     let inst_merge = new MergeSort(save_state)
     inst_merge.merge(0,n-1)
+    console.log("merge sort >> ",inst_merge.get_arr())
     // order process of merge sorting
     random_numbers_animation = inst_merge.animation_array
     // final ans >> sorted array >> inst_merge.get_arr()
@@ -115,12 +126,26 @@ let my_merge = () => {
     requestAnimationFrame(animate);
 }
 
-init()
+let my_radix = () => {
+    console.log("preorder: ", random_numbers)
+    let inst_radix = new RadixSort(random_numbers)
+    inst_radix.sorting()
+    console.log(inst_radix.arr_str)
+    inst_radix.clean0s()
+    console.log(inst_radix.arr)
+}
 
+// init run if refresh
+init()
+//console.log(save_state)
 resetBtn.addEventListener("click", (e) => {
+    // reset random numbers array
     random_numbers = Array.from({length: n}, () => Math.floor(Math.random() * limit_val)+1)
+    // call init
+    console.log("init >> ",random_numbers)
     init()
 })
 
 mergeBtn.addEventListener("click", (e) => my_merge())
+radixBtn.addEventListener("click", (e) => my_radix())
 

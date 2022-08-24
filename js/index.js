@@ -1,10 +1,12 @@
 import { Rectangle } from "./Rectangle.js";
 import { MergeSort } from "./algorithms_sorting/MergeSort.js";
 import { RadixSort } from "./algorithms_sorting/RadixSort.js";
+import { QuickSort } from "./algorithms_sorting/QuickSort.js";
 
 const resetBtn = document.getElementById("reset");
 const mergeBtn = document.getElementById("merge");
 const radixBtn = document.getElementById("radix");
+const quickBtn = document.getElementById("quick");
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
@@ -135,6 +137,14 @@ let my_radix = () => {
     console.log(inst_radix.arr)
 }
 
+let my_quick = () => {
+    console.log("preorder: ", random_numbers)
+    let inst_quick = new QuickSort(random_numbers)
+    console.log(inst_quick.arr)
+    inst_quick.quicksort(0,n-1)
+    console.log(inst_quick.arr)
+}
+
 // init run if refresh
 init()
 //console.log(save_state)
@@ -148,4 +158,5 @@ resetBtn.addEventListener("click", (e) => {
 
 mergeBtn.addEventListener("click", (e) => my_merge())
 radixBtn.addEventListener("click", (e) => my_radix())
+quickBtn.addEventListener("click", (e) => my_quick())
 

@@ -47,6 +47,7 @@ export class RadixSort{
                     this.bucket[parseInt(this.arr_str[i][this.k])].push(this.arr_str[i])
                 }
                 console.log("bucket-inorder:",[...this.bucket])
+                //console.log("bucket-inorder:",this.bucket)
             }
             if(this.debug) console.log("k:",this.k)
             if(this.debug) console.log("bucket - post order:",[...this.bucket])

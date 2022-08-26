@@ -1,3 +1,10 @@
+// time complexity
+// A nivel medio -> O(n log n) - pivot ~ median
+// worst case O(n^2)
+
+// Space complexity
+// swap
+
 export class QuickSort{
     constructor(array){
         this.arr = [...array]

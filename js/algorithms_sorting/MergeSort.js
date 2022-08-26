@@ -1,4 +1,5 @@
-// O(n log n)
+// time complexity worst case - O(n log n)
+// space complexity O(n)
 export class MergeSort{
     constructor(arr){
         this.array = [...arr]

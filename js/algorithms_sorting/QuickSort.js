@@ -17,11 +17,11 @@ export class QuickSort{
         }
     }
     swap(i,j){
-        console.log("i:",i,"j:",j)
+        //console.log("i:",i,"j:",j)
         let temp = [...this.arr][i] // ref
         this.arr[i] = this.arr[j]
         this.arr[j] = temp
-        console.log([...this.arr])
+        //console.log([...this.arr])
     }
     partition(low, high){
         let pivot = this.arr[high]

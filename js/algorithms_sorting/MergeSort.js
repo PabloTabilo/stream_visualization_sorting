@@ -1,8 +1,10 @@
 // time complexity worst case - O(n log n)
 // space complexity O(n)
+import { Rectangle } from "../Rectangle.js";
 export class MergeSort{
     constructor(arr){
         this.array = [...arr]
+        this.n = arr.length;
         this.array_index = []
         this.animation_array = [[...arr]]
     }
@@ -24,17 +26,44 @@ export class MergeSort{
             this.mergeSorting(l, mid, r)
         }
     }
+
+    clone(obj) {
+        return new Rectangle(obj.x,
+            obj.y,
+            obj.width,
+            obj.height,
+            obj.context,
+            obj.color,
+            obj.numero);
+    }
+
+    // O(n)
+    saveAnimation_hijoDe(idx,selected,sorted){
+        let local_arr = Array(this.n).fill(0)
+        for(let w =0; w < this.n; w++) local_arr[w] = this.clone(this.array[w])
+        if(selected || sorted){
+            if(selected) local_arr[idx].setSelection()
+            else local_arr[idx].setSelectionSorted()
+        }else{
+            for(let i=0; i<this.n; i++) local_arr[i].resetSelection()
+        }
+        this.animation_array.push([...local_arr])
+    }
+
     mergeSorting(l, mid, r){
         // Space complexity: O(n)
         let n1 = mid - l + 1
         let n2 = r - mid
         let L = Array(n1).fill(0);
         let R = Array(n2).fill(0);
+
         for(let i = 0; i<n1; i++){
             L[i] = this.array[l+i]
+            this.saveAnimation_hijoDe(l+i,true,false)
         }
         for(let i = 0; i<n2; i++){
             R[i] = this.array[mid+1+i]
+            this.saveAnimation_hijoDe(mid+1+i,true,false)
         }
         // Sorting
         let i = 0
@@ -48,6 +77,7 @@ export class MergeSort{
                 this.array[k] = R[j];
                 j++;
             }
+            this.saveAnimation_hijoDe(k,false,true)
             k++;
         }
         while(i<n1){
@@ -60,8 +90,10 @@ export class MergeSort{
             j++;
             k++;
         }
+        //track but with more shit
+        this.saveAnimation_hijoDe(0,false,false)
         // tracking current sorting position
-        this.animation_array.push([...this.array])
+        //this.animation_array.push([...this.array])
     }
 }
 // odd >> 11

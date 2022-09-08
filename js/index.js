@@ -3,12 +3,16 @@ import { MergeSort } from "./algorithms_sorting/MergeSort.js";
 import { RadixSort } from "./algorithms_sorting/RadixSort.js";
 import { QuickSort } from "./algorithms_sorting/QuickSort.js";
 import { InsertionSort } from "./algorithms_sorting/InsertionSort.js";
+import { SelectionSort } from "./algorithms_sorting/SelectionSort.js";
+import { BubbleSort } from "./algorithms_sorting/BubbleSort.js";
 
 const resetBtn = document.getElementById("reset");
 const mergeBtn = document.getElementById("merge");
 const radixBtn = document.getElementById("radix");
 const quickBtn = document.getElementById("quick");
 const insertionBtn = document.getElementById("insertion");
+const selectionBtn = document.getElementById("selection");
+const bubbleBtn = document.getElementById("bubble");
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
@@ -18,6 +22,9 @@ canvas.height = document.documentElement.clientHeight;
 
 // size of array that we need to sort
 let n = 50
+// Variables to control animation
+let stop_animation = n
+let global_dif_time = 50
 // number of pixels per element on array
 let limit_num = canvas.width / n
 // max value on array
@@ -39,8 +46,9 @@ let start = 0;
 let i = 0;
 
 function reset(){
-    i = 0;
-    start = 0;
+    i = 0
+    start = 0
+    stop_animation = n
     save_state = []
     map_rectangle_with_coords = []
     random_numbers_animation = []
@@ -91,11 +99,11 @@ function init(){
 }
 
 function animate(timestamp) {
-    if(i >= n) return;
+    if(i >= stop_animation) return;
     const elapsed = timestamp - start;
 
     //console.log("elpased dif: ", elapsed)
-    if (elapsed > 150) {
+    if (elapsed > global_dif_time) {
         //console.log("i:",i)
         start = timestamp;
         clear();
@@ -118,11 +126,14 @@ canvas.addEventListener("click", (e) => {
 })
 
 let my_merge = () => {
+    //console.log(save_state)
     let inst_merge = new MergeSort(save_state)
     inst_merge.merge(0,n-1)
     console.log("merge sort >> ",inst_merge.get_arr())
     // order process of merge sorting
     random_numbers_animation = inst_merge.animation_array
+    stop_animation = random_numbers_animation.length
+    console.log(inst_merge.animation_array)
     // final ans >> sorted array >> inst_merge.get_arr()
     clear()
     const currentDate = new Date();
@@ -154,6 +165,21 @@ let my_insertion = () =>{
     console.log(inst_insertion.arr)
 }
 
+let my_selection = () => {
+    console.log("preorder: ", random_numbers)
+    let inst_selection = new SelectionSort(random_numbers)
+    console.log(inst_selection.arr)
+    inst_selection.sort()
+    console.log(inst_selection.arr)
+}
+
+let my_bubble = () =>{
+    let inst_bubble = new BubbleSort(random_numbers)
+    console.log(inst_bubble.arr)
+    inst_bubble.sort()
+    console.log(inst_bubble.arr)
+}
+
 // init run if refresh
 init()
 //console.log(save_state)
@@ -169,4 +195,6 @@ mergeBtn.addEventListener("click", (e) => my_merge())
 radixBtn.addEventListener("click", (e) => my_radix())
 quickBtn.addEventListener("click", (e) => my_quick())
 insertionBtn.addEventListener("click", (e) => my_insertion())
+selectionBtn.addEventListener("click", (e) => my_selection())
+bubbleBtn.addEventListener("click", (e) => my_bubble())
 

@@ -24,7 +24,7 @@ canvas.height = document.documentElement.clientHeight;
 let n = 50
 // Variables to control animation
 let stop_animation = n
-let global_dif_time = 50
+let global_dif_time = 5
 // number of pixels per element on array
 let limit_num = canvas.width / n
 // max value on array
@@ -125,20 +125,31 @@ canvas.addEventListener("click", (e) => {
     console.log(save_state[i].numero);
 })
 
+function call_animation(random_numbers_animation){
+    stop_animation = random_numbers_animation.length
+    clear()
+    const currentDate = new Date();
+    const timestamp = currentDate.getTime();
+    requestAnimationFrame(animate);
+}
+
 let my_merge = () => {
-    //console.log(save_state)
+    console.log(save_state)
     let inst_merge = new MergeSort(save_state)
     inst_merge.merge(0,n-1)
     console.log("merge sort >> ",inst_merge.get_arr())
     // order process of merge sorting
     random_numbers_animation = inst_merge.animation_array
-    stop_animation = random_numbers_animation.length
-    console.log(inst_merge.animation_array)
-    // final ans >> sorted array >> inst_merge.get_arr()
-    clear()
-    const currentDate = new Date();
-    const timestamp = currentDate.getTime();
-    requestAnimationFrame(animate);
+    call_animation(random_numbers_animation)
+}
+
+let my_bubble = () =>{
+    console.log(save_state)
+    let inst_bubble = new BubbleSort(save_state)
+    inst_bubble.sort()
+    console.log(inst_bubble.arr)
+    random_numbers_animation = inst_bubble.animation_array
+    call_animation(random_numbers_animation)
 }
 
 let my_radix = () => {
@@ -173,12 +184,6 @@ let my_selection = () => {
     console.log(inst_selection.arr)
 }
 
-let my_bubble = () =>{
-    let inst_bubble = new BubbleSort(random_numbers)
-    console.log(inst_bubble.arr)
-    inst_bubble.sort()
-    console.log(inst_bubble.arr)
-}
 
 // init run if refresh
 init()

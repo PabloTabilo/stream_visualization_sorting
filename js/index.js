@@ -21,10 +21,10 @@ canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
 
 // size of array that we need to sort
-let n = 50
+let n = 60
 // Variables to control animation
 let stop_animation = n
-let global_dif_time = 5
+var global_dif_time = 5
 // number of pixels per element on array
 let limit_num = canvas.width / n
 // max value on array
@@ -143,12 +143,43 @@ let my_merge = () => {
     call_animation(random_numbers_animation)
 }
 
+let my_insertion = () =>{
+    console.log("preorder - objects: ",save_state)
+    //console.log("preorder: ", random_numbers)
+    let inst_insertion = new InsertionSort(save_state)
+    inst_insertion.sort()
+    console.log(inst_insertion.arr)
+    random_numbers_animation = inst_insertion.animation_array
+    call_animation(random_numbers_animation)
+}
+
 let my_bubble = () =>{
     console.log(save_state)
     let inst_bubble = new BubbleSort(save_state)
     inst_bubble.sort()
     console.log(inst_bubble.arr)
     random_numbers_animation = inst_bubble.animation_array
+    global_dif_time = 1
+    call_animation(random_numbers_animation)
+}
+
+let my_quick = () => {
+    console.log("preorder: ", random_numbers)
+    console.log(save_state)
+    let inst_quick = new QuickSort(save_state)
+    inst_quick.quicksort(0,n-1)
+    console.log(inst_quick.arr)
+    random_numbers_animation = inst_quick.animation_array
+    call_animation(random_numbers_animation)
+}
+
+let my_selection = () => {
+    console.log("preorder: ", random_numbers)
+    console.log(save_state)
+    let inst_selection = new SelectionSort(save_state)
+    inst_selection.sort()
+    console.log(inst_selection.arr)
+    random_numbers_animation = inst_selection.animation_array
     call_animation(random_numbers_animation)
 }
 
@@ -159,29 +190,6 @@ let my_radix = () => {
     console.log(inst_radix.arr_str)
     inst_radix.clean0s()
     console.log(inst_radix.arr)
-}
-
-let my_quick = () => {
-    console.log("preorder: ", random_numbers)
-    let inst_quick = new QuickSort(random_numbers)
-    console.log(inst_quick.arr)
-    inst_quick.quicksort(0,n-1)
-    console.log(inst_quick.arr)
-}
-
-let my_insertion = () =>{
-    let inst_insertion = new InsertionSort(random_numbers)
-    console.log(inst_insertion.arr)
-    inst_insertion.sort()
-    console.log(inst_insertion.arr)
-}
-
-let my_selection = () => {
-    console.log("preorder: ", random_numbers)
-    let inst_selection = new SelectionSort(random_numbers)
-    console.log(inst_selection.arr)
-    inst_selection.sort()
-    console.log(inst_selection.arr)
 }
 
 

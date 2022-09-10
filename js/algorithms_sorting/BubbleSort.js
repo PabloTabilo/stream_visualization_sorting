@@ -36,8 +36,9 @@ export class BubbleSort{
         //console.log([...this.arr])
     }
     sort(){
+        // need to scan O(n)
         for(let i = 0; i < this.n - 1; i++){
-            this.saveAnimation_hijoDe(i,true,false)
+            // Sort for finish
             for(let j = 0; j<this.n-i-1; j++){
                 this.saveAnimation_hijoDe(j,true,false)
                 this.saveAnimation_hijoDe(j+1,true,false)
@@ -49,8 +50,6 @@ export class BubbleSort{
                 this.saveAnimation_hijoDe(j,false,false)
                 this.saveAnimation_hijoDe(j+1,false,false)
             }
-            this.saveAnimation_hijoDe(i,false,true)
-            this.saveAnimation_hijoDe(i,false,false)
         }
     }
 }

@@ -7,21 +7,27 @@ import { SelectionSort } from "./algorithms_sorting/SelectionSort.js";
 import { BubbleSort } from "./algorithms_sorting/BubbleSort.js";
 
 const resetBtn = document.getElementById("reset");
-const mergeBtn = document.getElementById("merge");
-const radixBtn = document.getElementById("radix");
-const quickBtn = document.getElementById("quick");
-const insertionBtn = document.getElementById("insertion");
-const selectionBtn = document.getElementById("selection");
-const bubbleBtn = document.getElementById("bubble");
+const sortme = document.getElementById("sortme");
+const selection = document.getElementById("sortings")
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
 canvas.width = document.documentElement.clientWidth;
-canvas.height = document.documentElement.clientHeight;
+canvas.height = parseInt(document.documentElement.clientHeight*.6);
+
+let change_n_by_width_client = () => {
+    let w = document.documentElement.clientWidth;
+    if(w >= 1000) return 60
+    else if(w >= 800) return 45
+    else if(w >= 600) return 40
+    else if(w >= 500) return 30
+    else if(w >= 400) return 25
+    else return 15
+}
 
 // size of array that we need to sort
-let n = 60
+let n = change_n_by_width_client()
 // Variables to control animation
 let stop_animation = n
 var global_dif_time = 5
@@ -44,6 +50,8 @@ let random_numbers_animation = []
 let start = 0;
 // pointer for init animation of sorted array process
 let i = 0;
+// Global selection
+let selected_algorithm;
 
 function reset(){
     i = 0
@@ -101,7 +109,6 @@ function init(){
 function animate(timestamp) {
     if(i >= stop_animation) return;
     const elapsed = timestamp - start;
-
     //console.log("elpased dif: ", elapsed)
     if (elapsed > global_dif_time) {
         //console.log("i:",i)
@@ -117,7 +124,6 @@ function animate(timestamp) {
 
 canvas.addEventListener("click", (e) => {
     let clientX = e.clientX
-    let clientY = e.clientY
     let i = 0;
     while(map_rectangle_with_coords[i] < clientX){
         i++;
@@ -125,89 +131,53 @@ canvas.addEventListener("click", (e) => {
     console.log(save_state[i].numero);
 })
 
-function call_animation(random_numbers_animation){
-    stop_animation = random_numbers_animation.length
+function call_animation(){
     clear()
     const currentDate = new Date();
     const timestamp = currentDate.getTime();
     requestAnimationFrame(animate);
 }
 
-let my_merge = () => {
-    console.log(save_state)
-    let inst_merge = new MergeSort(save_state)
-    inst_merge.merge(0,n-1)
-    console.log("merge sort >> ",inst_merge.get_arr())
-    // order process of merge sorting
-    random_numbers_animation = inst_merge.animation_array
-    call_animation(random_numbers_animation)
-}
 
-let my_insertion = () =>{
-    console.log("preorder - objects: ",save_state)
-    //console.log("preorder: ", random_numbers)
-    let inst_insertion = new InsertionSort(save_state)
-    inst_insertion.sort()
-    console.log(inst_insertion.arr)
-    random_numbers_animation = inst_insertion.animation_array
-    call_animation(random_numbers_animation)
-}
 
-let my_bubble = () =>{
-    console.log(save_state)
-    let inst_bubble = new BubbleSort(save_state)
-    inst_bubble.sort()
-    console.log(inst_bubble.arr)
-    random_numbers_animation = inst_bubble.animation_array
-    global_dif_time = 1
-    call_animation(random_numbers_animation)
-}
+let sort_me = (option) => {
+    switch(parseInt(option)){
+        case 0:
+            selected_algorithm = new MergeSort(save_state)
+            break;
+        case 1:
+            selected_algorithm = new QuickSort(save_state)
+            break;
+        case 2:
+            selected_algorithm = new InsertionSort(save_state)
+            break;
+        case 3:
+            selected_algorithm = new SelectionSort(save_state)
+            break;
+        case 4:
+            selected_algorithm = new BubbleSort(save_state)
+            break;
+        case 5:
+            selected_algorithm = new RadixSort(save_state)
+            break;
+    }
+    console.log("previus-sort")
+    console.log(selected_algorithm.get_arr_num())
+    selected_algorithm.sort()
+    console.log("sorted")
+    console.log(selected_algorithm.get_arr_num())
+    random_numbers_animation = selected_algorithm.get_each_state_arr_objs()
+    stop_animation = random_numbers_animation.length
+    call_animation()
 
-let my_quick = () => {
-    console.log("preorder: ", random_numbers)
-    console.log(save_state)
-    let inst_quick = new QuickSort(save_state)
-    inst_quick.quicksort(0,n-1)
-    console.log(inst_quick.arr)
-    random_numbers_animation = inst_quick.animation_array
-    call_animation(random_numbers_animation)
 }
-
-let my_selection = () => {
-    console.log("preorder: ", random_numbers)
-    console.log(save_state)
-    let inst_selection = new SelectionSort(save_state)
-    inst_selection.sort()
-    console.log(inst_selection.arr)
-    random_numbers_animation = inst_selection.animation_array
-    call_animation(random_numbers_animation)
-}
-
-let my_radix = () => {
-    console.log("preorder: ", random_numbers)
-    let inst_radix = new RadixSort(random_numbers)
-    inst_radix.sorting()
-    console.log(inst_radix.arr_str)
-    inst_radix.clean0s()
-    console.log(inst_radix.arr)
-}
-
 
 // init run if refresh
 init()
-//console.log(save_state)
 resetBtn.addEventListener("click", (e) => {
     // reset random numbers array
     random_numbers = Array.from({length: n}, () => Math.floor(Math.random() * limit_val)+1)
-    // call init
-    console.log("init >> ",random_numbers)
     init()
 })
 
-mergeBtn.addEventListener("click", (e) => my_merge())
-radixBtn.addEventListener("click", (e) => my_radix())
-quickBtn.addEventListener("click", (e) => my_quick())
-insertionBtn.addEventListener("click", (e) => my_insertion())
-selectionBtn.addEventListener("click", (e) => my_selection())
-bubbleBtn.addEventListener("click", (e) => my_bubble())
-
+sortme.addEventListener("click", (e) => {sort_me(selection.value)})

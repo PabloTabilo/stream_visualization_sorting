@@ -9,14 +9,17 @@
 </head>
 <body>
     <canvas></canvas>
-    <div class="buttons">
+    <div class="menu">
         <button id="reset">Reset</button>
-        <button id="merge">Merge Sort</button>
-        <button id="radix">Radix Sort</button>
-        <button id="quick">Quick Sort</button>
-        <button id="insertion">Insertion Sort</button>
-        <button id="selection">Selection Sort</button>
-        <button id="bubble">Bubble Sort</button>
+        <select name="sortings" id="sortings">
+            <option value=0>Merge Sort</option>
+            <option value=1>Quick Sort</option>
+            <option value=2>Insertion Sort</option>
+            <option value=3>Selection Sort</option>
+            <option value=4>Bubble Sort</option>
+            <option value=5>Radix Sort</option>
+        </select>
+        <button id="sortme">Sort me</button>
     </div>
     <script type="module" src="./js/index.js"></script>
 </body>

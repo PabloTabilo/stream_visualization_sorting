@@ -12,9 +12,12 @@ export class Rectangle{
         this.selection_bool = false;
         this.selection_is_sorted_bool = false;
         this.numero = numero;
+        this.numero_str = numero.toString();
     }
     setX = (x) => this.x = x;
     getNumber = () => this.numero;
+    getNumberStr = () => this.numero_str;
+    setNumberStr = (n) => this.numero_str = n;
     resetSelection = () => {
         this.selection_bool = false;
         this.selection_is_sorted_bool = false;

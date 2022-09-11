@@ -35,6 +35,7 @@ export class AlgorithmsSortings{
         this.arr[i] = this.arr[j]
         this.arr[j] = temp
     }
+
     get_each_state_arr_objs = () => this.animation_array
     get_arr_objs = () => this.arr
     get_arr_num = () => {

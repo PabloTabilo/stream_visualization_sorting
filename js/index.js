@@ -161,15 +161,14 @@ let sort_me = (option) => {
             selected_algorithm = new RadixSort(save_state)
             break;
     }
-    console.log("previus-sort")
-    console.log(selected_algorithm.get_arr_num())
+    //console.log("previus-sort")
+    //console.log(selected_algorithm.get_arr_num())
     selected_algorithm.sort()
-    console.log("sorted")
-    console.log(selected_algorithm.get_arr_num())
+    //console.log("sorted")
+    //console.log(selected_algorithm.get_arr_num())
     random_numbers_animation = selected_algorithm.get_each_state_arr_objs()
     stop_animation = random_numbers_animation.length
     call_animation()
-
 }
 
 // init run if refresh

@@ -1,10 +1,6 @@
 import { AlgorithmsSortings } from "./AlgorithmsSortings.js";
 
 export class InsertionSort extends AlgorithmsSortings{
-    constructor(arr){
-        super(arr)
-    }
-
     sort(){
         // O(n^2)
         for(let i = 1; i<this.n; i++){ // - O(n)

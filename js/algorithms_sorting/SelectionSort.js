@@ -1,10 +1,6 @@
 import { AlgorithmsSortings } from "./AlgorithmsSortings.js";
 
 export class SelectionSort extends AlgorithmsSortings{
-    constructor(arr){
-        super(arr)
-    }
-
     sort(){
         for(let i = 0; i < this.n; i++){
             let min_value = this.arr[i].getNumber();

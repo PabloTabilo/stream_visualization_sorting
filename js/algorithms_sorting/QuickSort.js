@@ -1,9 +1,6 @@
 import { AlgorithmsSortings } from "./AlgorithmsSortings.js";
 
 export class QuickSort extends AlgorithmsSortings{
-    constructor(array){
-        super(array)
-    }
     // Override
     sort(){
         this.quicksort(0,this.n-1)

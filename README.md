@@ -1,5 +1,5 @@
 # Visualization Sorting
-Objective: Apply differents algorithms of sorting and check what happend internally about it logic
+Objective: Apply differents algorithms of sorting and check what happens internally about it logic
 Check the [project here](https://pablotabilo.github.io/stream_visualization_sorting/)
 ## Preview
 ![](https://github.com/PabloTabilo/stream_visualization_sorting/blob/main/resources/test_visualization_sorting.png)

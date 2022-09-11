@@ -1,10 +1,6 @@
 import { AlgorithmsSortings } from "./AlgorithmsSortings.js";
 
 export class BubbleSort extends AlgorithmsSortings{
-    constructor(arr){
-        super(arr)
-    }
-
     sort(){
         // need to scan O(n)
         for(let i = 0; i < this.n - 1; i++){
